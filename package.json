@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
@@ -20,8 +21,7 @@
     "@vueuse/nuxt": "^13.9.0",
     "better-sqlite3": "^12.4.1",
     "motion-v": "^1.7.2",
-    "nuxt": "^4.1.2",
-    "nuxt-og-image": "^5.1.11"
+    "nuxt": "^4.1.2"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.9.0",

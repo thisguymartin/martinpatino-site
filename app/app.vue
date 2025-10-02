@@ -51,7 +51,7 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
       </UMain>
     </NuxtLayout>
 
-    <!-- <ClientOnly>
+    <ClientOnly>
       <LazyUContentSearch
         :files="files"
         :navigation="navigation"
@@ -59,6 +59,6 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
         :links="navLinks"
         :fuse="{ resultLimit: 42 }"
       />
-    </ClientOnly> -->
+    </ClientOnly>
   </UApp>
 </template>
