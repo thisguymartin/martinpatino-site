@@ -1,0 +1,131 @@
+seo:
+  title: "Martin Patino - Senior Software Engineer"
+  description: "Welcome to my portfolio! I'm Martin Patino, a Senior Software Engineer at Sibi specializing in AWS serverless technologies, Node.js, React, and React Native. I build scalable, user-centric solutions."
+title: "Hey, I'm Martin Patino - Senior Software Engineer"
+description: "I'm a Senior Software Engineer at Sibi with over 5 years of experience specializing in AWS serverless technologies, AI agents, MCP servers, Node.js, and React. I build lean, cost-effective, scalable solutions and lead complex serverless migrations."
+hero:
+  links:
+    - label: "Visit Me"
+      to: https://github.com/thisguymartin
+      color: "neutral"
+  images:
+    # - src: /hero/random-1.avif
+    #   alt: Random Image 1
+    # - src: /hero/random-2.avif
+    #   alt: Random Image 2
+    # - src: /hero/random-3.avif
+    #   alt: Random Image 3
+    # - src: /hero/random-4.avif
+    #   alt: Random Image 4
+    # - src: /hero/random-5.avif
+    #   alt: Random Image 5
+    # - src: /hero/random-6.avif
+    #   alt: Random Image 6
+    # - src: /hero/random-7.avif
+    #   alt: Random Image 7
+    # - src: /hero/random-8.avif
+    #   alt: Random Image 8
+    # - src: /hero/random-9.avif
+    #   alt: Random Image 9
+# about:
+#   title: "About Me"
+#   description: |
+#     As a UX/UI designer and front-end developer with 6 years of experience, I leverage my Boston University Interactive Design degree to craft user-centered digital experiences.
+#     My approach blends creative strategy with technical expertise, transforming concepts into functional, purposeful digital products that seamlessly integrate design and technology.
+experience:
+  title: Work Experience
+  items:
+    - position: "Senior Software Engineer at"
+      date: "2019 - Present"
+      company:
+        name: Sibi
+        logo: "i-simple-icons-awslambda"
+        url: "https://sibi.com"
+        color: "#FF9900"
+    - position: "Lead Software Engineer at"
+      date: "2019 - Present"
+      company:
+        name: Gizmodlabs
+        logo: "i-simple-icons-react"
+        url: "#"
+        color: "#61DAFB"
+    - position: "Senior Software Engineer at"
+      date: "2019 - 2019"
+      company:
+        name: Torchlight Software
+        logo: "i-simple-icons-docker"
+        url: "#"
+        color: "#2496ED"
+    - position: "Software Engineer at"
+      date: "2018 - 2019"
+      company:
+        name: NAGRA
+        logo: "i-simple-icons-java"
+        url: "https://www.nagra.com"
+        color: "#007396"
+    - position: "Frontend Developer at"
+      date: "2017 - 2018"
+      company:
+        name: Truman
+        logo: "i-simple-icons-vuedotjs"
+        url: "#"
+        color: "#4FC08D"
+testimonials:
+  - quote: "Martin's expertise in AWS serverless architecture completely transformed our platform. He successfully led the migration of our entire system to a serverless infrastructure, which improved our scalability and reduced operational costs significantly. His ability to translate complex technical requirements into actionable development plans is exceptional."
+    author:
+      name: 'John Smith'
+      description: 'CTO at Sibi'
+      avatar:
+        src: 'https://avatars.githubusercontent.com/u/13192083?v=4'
+        srcset: 'https://avatars.githubusercontent.com/u/13192083?v=4 2x'
+  - quote: "Working with Martin at Torchlight was a game-changer. He not only served as our Agile SCRUM Master but also architected our entire CI/CD pipeline using Docker and Heroku. His leadership in hiring and building our development team was instrumental to our success. He's a true technical leader."
+    author:
+      name: 'Sarah Johnson'
+      description: 'CEO at Torchlight Software'
+      avatar:
+        src: 'https://avatars.githubusercontent.com/u/13192083?v=4'
+        srcset: 'https://avatars.githubusercontent.com/u/13192083?v=4 2x'
+  - quote: "Martin's work on our myCinema product was outstanding. He built both the frontend UI with React and the backend API with Java SpringBoot, handling complex challenges like content encryption with Widevine. His full-stack capabilities and attention to detail make him an invaluable engineer."
+    author:
+      name: 'Michael Chen'
+      description: 'Product Manager at NAGRA'
+      avatar:
+        src: 'https://avatars.githubusercontent.com/u/13192083?v=4'
+        srcset: 'https://avatars.githubusercontent.com/u/13192083?v=4 2x'
+blog:
+  title: "Latest Articles"
+  description: "Some of my recent thoughts"
+faq:
+  title: Frequently Asked Questions
+  description: Answers to common questions about my experience and expertise.
+  categories:
+    - title: Technical Expertise
+      questions:
+        - label: What technologies do you specialize in?
+          content: |
+            I specialize in AWS serverless technologies (Lambda, SQS, EventBridge, DynamoDB, S3, CloudWatch), AI agents, MCP (Model Context Protocol) servers, Node.js, React, React Native, Vue.js, and Nuxt.js. I have extensive experience with integration services, data ingestion, messaging-driven systems using RabbitMQ, and CI/CD processes using Docker and Heroku. I focus on building lean, cost-effective solutions.
+        - label: What is your approach to software development?
+          content: |
+            My approach is collaborative and user-centric. I work closely with stakeholders to define product roadmaps, translate technical requirements into actionable development plans, and build scalable solutions. I focus on serverless architectures, AI-driven features, clean code, and continuous integration practices to deliver reliable, performant systems. I prioritize keeping projects lean and cost-effective, avoiding bloated architectures that unnecessarily increase operational expenses.
+        - label: Do you work with startups?
+          content: |
+            Absolutely! I have extensive experience working with startups, from defining product roadmaps with angel investors to architecting rapid prototyping platforms. I've helped multiple startups build their MVPs, scale their systems, and establish strong technical foundations.
+    - title: Experience & Background
+      questions:
+        - label: What are you currently working on?
+          content: |
+            I'm currently leading the migration of the Sibi system to AWS serverless architecture, implementing technologies like SQS, EventBridge, Lambda, DynamoDB, and S3. I'm also working on multiple AI projects focusing on AI agents and MCP servers for client usage. I maintain client-facing web and mobile applications using React Native, manage integration services, and have implemented the entire payment service for multiple manufacturer workflows.
+        - label: What is your educational background?
+          content: |
+            I hold a Bachelor's degree in Criminalistics and Criminal Science from Arizona State University (2012-2014). I've also completed Full Stack Web Development certificates from Coursera and Free Code Camp (2015-2016), and earned certifications in Angular.js, HTML, CSS, JavaScript, and Front-End Web UI Frameworks.
+        - label: What type of projects have you worked on?
+          content: |
+            I've worked on diverse projects including AI agents, MCP servers, enterprise payment systems, serverless migrations, mobile applications with React Native, content encryption systems, CI/CD pipelines, rapid prototyping platforms, and cybersecurity user interfaces. I've handled everything from full-stack development to team leadership and product roadmap planning, always focusing on lean, cost-effective solutions.
+    - title: About Me
+      questions:
+        - label: What drives you as a software engineer?
+          content: |
+            I'm passionate about translating stakeholder needs into actionable technical solutions and empowering teams to achieve shared goals. I thrive on continuous learning, innovation, and solving complex problems through elegant architectures. The challenge of building scalable, user-centric systems that make a real impact drives me every day.
+        - label: Where are you based?
+          content: |
+            I'm based in Phoenix, Arizona, and am fluent in both English and Spanish. I'm open to remote work and have experience collaborating with distributed teams across different time zones.
