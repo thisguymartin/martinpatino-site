@@ -105,7 +105,9 @@ defineProps<{
           v-if="page.hero.links"
           class="flex items-center gap-2"
         >
-          <UButton v-bind="page.hero.links[0]" />
+          <!-- <UButton v-bind="page.hero.links[0]" /> -->
+          <UButton label="Contact Me" to="mailto:martin@sibipro.com" color="neutral" />
+        
           <UButton
             :color="global.available ? 'success' : 'error'"
             variant="ghost"
