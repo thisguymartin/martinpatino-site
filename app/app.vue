@@ -10,7 +10,7 @@ useHead({
     { key: 'theme-color', name: 'theme-color', content: color }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', href: '/profile.png' }
   ],
   htmlAttrs: {
     lang: 'en'
@@ -18,9 +18,9 @@ useHead({
 })
 
 useSeoMeta({
-  titleTemplate: '%s - Nuxt Portfolio Template',
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/portfolio-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/portfolio-light.png',
+  titleTemplate: '%s - Martin Patino',
+  ogImage: 'https://avatars.githubusercontent.com/u/13192083?v=4',
+  twitterImage: 'https://avatars.githubusercontent.com/u/13192083?v=4',
   twitterCard: 'summary_large_image'
 })
 
