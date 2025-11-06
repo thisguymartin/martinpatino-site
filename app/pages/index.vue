@@ -37,8 +37,28 @@ usePersonSchema({
 
 <template>
   <UPage v-if="page">
+    <!-- Scroll Progress Indicator -->
+    <ScrollProgress />
+
+    <!-- Hero Section -->
     <LandingHero :page />
+
+    <!-- Skills Section -->
+    <LandingSkills :page />
+
+    <!-- Work Experience Section -->
+    <LandingWorkExperience :page />
+
+    <!-- Featured Projects Section -->
+    <LandingProjects />
+
+    <!-- Testimonials Section -->
+    <LandingTestimonials :page />
+
+    <!-- Blog Section -->
     <LandingBlog :page />
+
+    <!-- FAQ Section -->
     <LandingFAQ :page />
   </UPage>
 </template>
