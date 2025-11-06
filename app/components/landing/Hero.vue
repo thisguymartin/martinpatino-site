@@ -6,6 +6,12 @@ const { footer, global } = useAppConfig()
 defineProps<{
   page: IndexCollectionItem
 }>()
+
+// Animation helpers
+const headlineAnim = useEntryAnimation({ delay: 0.1 })
+const titleAnim = useEntryAnimation({ delay: 0.1 })
+const descriptionAnim = useEntryAnimation({ delay: 0.3 })
+const linksAnim = useEntryAnimation({ delay: 0.5 })
 </script>
 
 <template>
@@ -17,22 +23,7 @@ defineProps<{
     }"
   >
     <template #headline>
-      <Motion
-        :initial="{
-          scale: 1.1,
-          opacity: 0,
-          filter: 'blur(20px)'
-        }"
-        :animate="{
-          scale: 1,
-          opacity: 1,
-          filter: 'blur(0px)'
-        }"
-        :transition="{
-          duration: 0.6,
-          delay: 0.1
-        }"
-      >
+      <Motion v-bind="headlineAnim">
         <UColorModeAvatar
           class="size-18 ring ring-default ring-offset-3 ring-offset-(--ui-bg)"
           :light="global.picture?.light!"
@@ -43,70 +34,24 @@ defineProps<{
     </template>
 
     <template #title>
-      <Motion
-        :initial="{
-          scale: 1.1,
-          opacity: 0,
-          filter: 'blur(20px)'
-        }"
-        :animate="{
-          scale: 1,
-          opacity: 1,
-          filter: 'blur(0px)'
-        }"
-        :transition="{
-          duration: 0.6,
-          delay: 0.1
-        }"
-      >
+      <Motion v-bind="titleAnim">
         {{ page.title }}
       </Motion>
     </template>
 
     <template #description>
-      <Motion
-        :initial="{
-          scale: 1.1,
-          opacity: 0,
-          filter: 'blur(20px)'
-        }"
-        :animate="{
-          scale: 1,
-          opacity: 1,
-          filter: 'blur(0px)'
-        }"
-        :transition="{
-          duration: 0.6,
-          delay: 0.3
-        }"
-      >
+      <Motion v-bind="descriptionAnim">
         {{ page.description }}
       </Motion>
     </template>
 
     <template #links>
-      <Motion
-        :initial="{
-          scale: 1.1,
-          opacity: 0,
-          filter: 'blur(20px)'
-        }"
-        :animate="{
-          scale: 1,
-          opacity: 1,
-          filter: 'blur(0px)'
-        }"
-        :transition="{
-          duration: 0.6,
-          delay: 0.5
-        }"
-      >
+      <Motion v-bind="linksAnim">
         <div
           v-if="page.hero.links"
           class="flex items-center gap-2"
         >
-          <!-- <UButton v-bind="page.hero.links[0]" /> -->
-          <UButton label="Contact Me" to="mailto:martin@sibipro.com" color="neutral" />
+          <UButton label="Contact Me" :to="`mailto:${global.email}`" color="neutral" />
         
           <UButton
             :color="global.available ? 'success' : 'error'"
@@ -135,20 +80,7 @@ defineProps<{
         <Motion
           v-for="(link, index) of footer?.links"
           :key="index"
-          :initial="{
-            scale: 1.1,
-            opacity: 0,
-            filter: 'blur(20px)'
-          }"
-          :animate="{
-            scale: 1,
-            opacity: 1,
-            filter: 'blur(0px)'
-          }"
-          :transition="{
-            duration: 0.6,
-            delay: 0.5 + index * 0.1
-          }"
+          v-bind="useEntryAnimation({ delay: 0.5 + index * 0.1 })"
         >
           <UButton v-bind="{ size: 'md', color: 'neutral', variant: 'ghost', ...link }" />
         </Motion>
@@ -162,20 +94,7 @@ defineProps<{
       <Motion
         v-for="(img, index) in page.hero.images"
         :key="index"
-        :initial="{
-          scale: 1.1,
-          opacity: 0,
-          filter: 'blur(20px)'
-        }"
-        :animate="{
-          scale: 1,
-          opacity: 1,
-          filter: 'blur(0px)'
-        }"
-        :transition="{
-          duration: 0.6,
-          delay: index * 0.1
-        }"
+        v-bind="useEntryAnimation({ delay: index * 0.1 })"
       >
         <NuxtImg
           width="234"

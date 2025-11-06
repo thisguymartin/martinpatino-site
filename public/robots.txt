@@ -1,1 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_projects
 
+Sitemap: https://martinpatino.com/sitemap.xml

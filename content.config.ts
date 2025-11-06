@@ -29,6 +29,11 @@ const createAuthorSchema = () => z.object({
   avatar: createImageSchema().optional()
 })
 
+const createSEOSchema = () => z.object({
+  title: z.string(),
+  description: z.string()
+}).optional()
+
 const createTestimonialSchema = () => z.object({
   quote: z.string(),
   author: createAuthorSchema()
@@ -40,6 +45,7 @@ export default defineContentConfig({
       type: 'page',
       source: 'index.yml',
       schema: z.object({
+        seo: createSEOSchema(),
         hero: z.object({
           links: z.array(createButtonSchema()),
           images: z.array(createImageSchema())
@@ -89,6 +95,7 @@ export default defineContentConfig({
       type: 'page',
       source: 'blog/*.md',
       schema: z.object({
+        seo: createSEOSchema(),
         minRead: z.number(),
         date: z.date(),
         image: z.string().nonempty().editor({ input: 'media' }),
@@ -102,6 +109,7 @@ export default defineContentConfig({
         { include: 'blog.yml' }
       ],
       schema: z.object({
+        seo: createSEOSchema(),
         links: z.array(createButtonSchema())
       })
     }),
@@ -109,6 +117,7 @@ export default defineContentConfig({
       type: 'page',
       source: 'speaking.yml',
       schema: z.object({
+        seo: createSEOSchema(),
         links: z.array(createButtonSchema()),
         events: z.array(z.object({
           category: z.enum(['Live talk', 'Podcast', 'Conference']),
@@ -123,6 +132,7 @@ export default defineContentConfig({
       type: 'page',
       source: 'about.yml',
       schema: z.object({
+        seo: createSEOSchema(),
         content: z.object({}),
         images: z.array(createImageSchema())
       })

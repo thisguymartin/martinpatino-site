@@ -33,6 +33,22 @@ useSeoMeta({
   ogImage: page.value?.image
 })
 
+// Add JSON-LD Article schema for SEO
+if (page.value) {
+  useArticleSchema({
+    headline: page.value.title,
+    description: page.value.description,
+    datePublished: new Date(page.value.date).toISOString(),
+    dateModified: new Date(page.value.date).toISOString(),
+    author: {
+      name: page.value.author.name,
+      url: 'https://martinpatino.com'
+    },
+    image: page.value.image,
+    url: `https://martinpatino.com${route.path}`
+  })
+}
+
 const articleLink = computed(() => import.meta.client ? `${window.location}` : '')
 
 const formatDate = (dateString: string) => {

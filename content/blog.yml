@@ -1,3 +1,6 @@
+seo:
+  title: "Blog - Articles on AWS, Serverless, AI & Software Development by Martin Patino"
+  description: "Read Martin Patino's technical articles on AWS serverless architecture, AI agents, MCP servers, Lambda, DynamoDB, and software development best practices."
 title: Latest Articles
 description: Some of my recent thoughts on serverless architecture, AWS, AI, and software development. Read more on my Dev.to profile.
 devto_profile: https://dev.to/thisguymartin

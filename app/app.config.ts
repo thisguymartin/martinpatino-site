@@ -6,7 +6,7 @@ export default defineAppConfig({
       alt: 'My profile picture'
     },
     meetingLink: '',
-    email: 'martin@gizmodlabs.com',
+    email: 'martin@sibipro.com',
     available: true
   },
   ui: {
