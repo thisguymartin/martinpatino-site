@@ -1,6 +1,9 @@
 ---
 title: "Building Vibecheck: Turning Customer Sentiment into Actionable Insights"
 description: An AI-powered sentiment analysis tool that processes customer interactions from chat, email, voice, and video platforms to provide actionable insights.
+seo:
+  title: "Building Vibecheck - AI-Powered Customer Sentiment Analysis Tool"
+  description: "Learn how to build an AI-powered sentiment analysis tool that processes customer interactions from chat, email, voice, and video. Real-world case study by Martin Patino."
 date: 2025-01-15
 image: https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 minRead: 6

@@ -1,6 +1,9 @@
 ---
 title: "How to Build a Simple API Service with SST v3: A Step-by-Step Guide"
 description: A comprehensive guide to building serverless API services using SST v3, AWS Lambda, and DynamoDB for scalable applications.
+seo:
+  title: "Build Serverless API with SST v3 - Complete AWS Lambda Tutorial"
+  description: "Step-by-step guide to building serverless API services with SST v3, AWS Lambda, and DynamoDB. Learn infrastructure as code for scalable applications. By Martin Patino."
 date: 2024-12-10
 image: https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 minRead: 5
