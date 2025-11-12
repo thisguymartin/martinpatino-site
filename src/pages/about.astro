@@ -8,181 +8,85 @@ import { siteConfig } from '../config';
   title="About Martin Patino - Senior Software Engineer specializing in AWS & Serverless"
   description="Learn about Martin Patino's journey as a Senior Software Engineer with 5+ years at Sibi. Expert in AWS serverless, AI agents, MCP servers, Node.js, React, and cost-effective solutions."
 >
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-    <!-- Header -->
-    <div class="mb-12">
-      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-        About Me
-      </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">
-        Learn more about my journey as a Senior Software Engineer specializing in AWS serverless
-        technologies, Node.js, React, and React Native for building scalable, user-centric solutions.
-      </p>
-    </div>
-
-    <!-- Profile Image -->
-    <div class="mb-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+    <!-- Header with Profile Image -->
+    <div class="mb-16 text-center">
       <img
         src={siteConfig.author.avatar}
         alt="Martin Patino"
-        class="w-48 h-48 rounded-full border-4 border-primary-200 dark:border-primary-800 shadow-lg"
+        class="w-32 h-32 rounded-full border-4 border-primary-200 dark:border-primary-800 shadow-lg mx-auto mb-6"
         loading="eager"
       />
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        About Me
+      </h1>
     </div>
 
     <!-- Content -->
-    <div class="prose prose-lg dark:prose-invert max-w-none space-y-8">
-      <div class="text-gray-700 dark:text-gray-300">
-        <p>
-          Hi, I'm <strong>Martin Patino</strong>, a Senior Software Engineer based in Phoenix,
-          Arizona. With over five years at Sibi, I specialize in AWS serverless technologies,
-          Node.js, and React to deliver scalable, user-centric solutions. I'm passionate about
-          translating stakeholder needs into actionable development plans and empowering teams to
-          achieve shared goals.
-        </p>
-      </div>
-
-      <!-- Current Focus -->
+    <div class="prose prose-lg dark:prose-invert max-w-none space-y-12">
+      <!-- Who I Am -->
       <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-          <Icon name="lucide:target" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
-          Current Focus
-        </h2>
-        <div class="text-gray-700 dark:text-gray-300 space-y-4">
+        <div class="text-gray-700 dark:text-gray-300 space-y-4 text-lg leading-relaxed">
           <p>
-            I'm currently leading the migration of the Sibi system to a serverless architecture on
-            AWS, integrating technologies such as <strong>SQS</strong>, <strong>EventBridge</strong
-            >, <strong>Lambda</strong>, <strong>DynamoDB</strong>, <strong>S3</strong>, and
-            <strong>CloudWatch</strong>. I maintain client-facing web applications and mobile apps
-            using <strong>React Native</strong>, and have implemented Sibi's entire payment service
-            supporting multiple manufacturer workflows.
+            Hi, I'm <strong>Martin Patino</strong>, a Senior Software Engineer based in Phoenix, Arizona.
+            I've spent the last five years at Sibi building serverless architectures on AWS, working with
+            technologies like Lambda, DynamoDB, EventBridge, and React Native to create scalable systems
+            that actually work in production.
           </p>
           <p>
-            I have extensive experience with multiple <strong>AI projects</strong>, focusing on
-            <strong>AI agents</strong> and <strong>MCP (Model Context Protocol) servers</strong> for
-            client usage. I prioritize keeping projects lean and cost-effective, avoiding bloated architectures
-            that unnecessarily drive up expenses.
+            I'm particularly interested in AI agents and MCP (Model Context Protocol) servers, where I focus
+            on practical implementations that solve real problems. I believe in keeping systems lean and
+            cost-effective—architecture should enable the business, not drain it.
+          </p>
+          <p>
+            Beyond my day job, I write about software development, serverless architecture, and the intersection
+            of AI and practical engineering. When I'm not coding, I'm probably thinking about ways to simplify
+            something that's too complicated.
           </p>
         </div>
       </section>
 
-      <!-- Technical Expertise -->
+      <!-- What I Do -->
       <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-          <Icon name="lucide:code-2" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
-          Technical Expertise
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+          What I Do
         </h2>
-        <div class="text-gray-700 dark:text-gray-300">
-          <p class="mb-4">My expertise spans across full-stack development with a strong focus on:</p>
-          <ul class="space-y-2">
-            <li>
-              <strong>AWS Serverless Architecture:</strong> Lambda, SQS, EventBridge, DynamoDB, S3,
-              CloudWatch
-            </li>
-            <li>
-              <strong>AI & Machine Learning:</strong> AI agents, MCP servers, AI-driven integrations
-            </li>
-            <li>
-              <strong>Frontend:</strong> React, React Native, Vue.js, Nuxt.js, HTML, CSS, SASS
-            </li>
-            <li><strong>Backend:</strong> Node.js, PHP, Elixir, Java SpringBoot</li>
-            <li>
-              <strong>Integration Services:</strong> Primary developer for all integration services
-              and data ingestion
-            </li>
-            <li>
-              <strong>Messaging Systems:</strong> Experience with RabbitMQ for messaging-driven
-              architectures
-            </li>
-            <li><strong>DevOps:</strong> Docker, Heroku, CI/CD processes</li>
-            <li>
-              <strong>Cost Optimization:</strong> Building lean, efficient systems that minimize operational
-              costs
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Professional Journey -->
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-          <Icon name="lucide:briefcase" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
-          Professional Journey
-        </h2>
-        <div class="text-gray-700 dark:text-gray-300 space-y-4">
+        <div class="text-gray-700 dark:text-gray-300 space-y-4 text-lg leading-relaxed">
           <p>
-            Currently, I serve as <strong>Senior Software Engineer at Sibi</strong> (since December
-            2019) where I define product roadmaps with stakeholders and partner manufacturers, and as
-            <strong>Lead Software Engineer at Gizmodlabs</strong> (since February 2019).
+            At <strong>Sibi</strong>, I lead our serverless migration, designing and implementing the architecture
+            that powers our platform. I work with stakeholders and partner manufacturers to define product roadmaps,
+            then turn those conversations into working systems. I also maintain our payment service, which handles
+            multiple manufacturer workflows across web and mobile platforms.
           </p>
-          <p>Previously, I worked as:</p>
-          <ul class="space-y-2">
-            <li>
-              <strong>Senior Software Engineer at Torchlight Software</strong> (2019) - Led as Agile
-              SCRUM Master, architected CI/CD processes, and designed the MindMint product
-            </li>
-            <li>
-              <strong>Software Engineer at NAGRA</strong> (2018-2019) - Built frontend UI and backend
-              API for myCinema, handled content encryption with Widevine
-            </li>
-            <li>
-              <strong>Frontend Developer at Truman</strong> (2017-2018) - Primary developer for cybersecurity
-              startup using Vue.js, Nuxt, and Vuex
-            </li>
-            <li>
-              <strong>Freelance Web Developer</strong> (2016-2018) - Custom website design, CMS deployment
-              (WordPress, Keystone.js)
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Education -->
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-          <Icon name="lucide:graduation-cap" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
-          Education & Learning
-        </h2>
-        <div class="text-gray-700 dark:text-gray-300">
           <p>
-            I hold a Bachelor's degree in Criminalistics and Criminal Science from Arizona State
-            University (2012-2014), and have completed Full Stack Web Development certificates from
-            Coursera and Free Code Camp (2015-2016).
+            As <strong>Lead Software Engineer at Gizmodlabs</strong>, I focus on full-stack development and
+            technical leadership, helping teams build better software through clean architecture and practical
+            engineering practices.
           </p>
         </div>
       </section>
 
-      <!-- What Drives Me -->
+      <!-- Let's Connect -->
       <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-          <Icon name="lucide:heart" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
-          What Drives Me
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+          Let's Connect
         </h2>
-        <div class="text-gray-700 dark:text-gray-300">
-          <p>
-            I'm dedicated to continuous learning and innovation, bringing technical proficiency and
-            a collaborative mindset to every project. I thrive on solving complex problems through
-            elegant technical solutions and working across all functional areas to gather inputs,
-            update product plans, and communicate the impact of product decisions to stakeholders.
+        <div class="text-gray-700 dark:text-gray-300 space-y-6">
+          <p class="text-lg">
+            I'm always interested in hearing about new projects, discussing serverless architecture,
+            or chatting about AI implementations. Feel free to reach out via email or check out my
+            blog for my latest thoughts on software engineering.
           </p>
-        </div>
-      </section>
-
-      <!-- CTA -->
-      <section class="card bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800 text-center">
-        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">
-          Thanks for stopping by. Feel free to browse my blog or get in touch if you'd like to
-          collaborate!
-        </p>
-        <div class="flex flex-wrap gap-4 justify-center">
-          <a href="/blog" class="btn btn-secondary">
-            <Icon name="lucide:book-open" class="w-5 h-5" />
-            Read Blog
-          </a>
-          <a href={`mailto:${siteConfig.email}`} class="btn">
-            <Icon name="lucide:mail" class="w-5 h-5" />
-            Get in Touch
-          </a>
+          <div class="flex flex-wrap gap-4 pt-4">
+            <a href={`mailto:${siteConfig.email}`} class="btn">
+              <Icon name="lucide:mail" class="w-5 h-5" />
+              Email Me
+            </a>
+            <a href="/blog" class="btn btn-secondary">
+              <Icon name="lucide:book-open" class="w-5 h-5" />
+              Read My Blog
+            </a>
+          </div>
         </div>
       </section>
     </div>

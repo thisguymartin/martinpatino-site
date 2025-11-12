@@ -36,14 +36,14 @@ const formatDate = (date: Date) => {
     <div class="space-y-8">
       {
         sortedPosts.map((post) => (
-          <article class="card group hover:scale-[1.02] transition-transform">
+          <article class="card group">
             <a href={`/blog/${post.slug}`} class="block">
               {post.data.image && (
                 <div class="mb-4 rounded-lg overflow-hidden">
                   <img
                     src={post.data.image}
                     alt={post.data.title}
-                    class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    class="w-full h-48 object-cover"
                     loading="lazy"
                   />
                 </div>
@@ -85,7 +85,7 @@ const formatDate = (date: Date) => {
 
                 <div class="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium pt-2">
                   Read more
-                  <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <Icon name="lucide:arrow-right" class="w-4 h-4" />
                 </div>
               </div>
             </a>
