@@ -85,16 +85,16 @@ content/
 
 ## 🎨 Features
 
-- ✅ Server-side rendering (SSR)
-- ✅ Static site generation (SSG)
+- ✅ **Fully Static Site** - Pre-rendered at build time (SSG), no server required
+- ✅ **SEO Optimized** - Meta tags, Open Graph, Twitter Cards, and JSON-LD structured data
 - ✅ Dark/Light mode with system preference detection
-- ✅ SEO optimized with meta tags and Open Graph
 - ✅ Content search functionality (⌘K)
 - ✅ Responsive design
 - ✅ Animation on scroll (Motion-V)
 - ✅ Blog with markdown support
 - ✅ Code highlighting in blog posts
-- ✅ Image optimization
+- ✅ Image optimization with WebP format
+- ✅ Automatic sitemap generation
 
 ## 🛠️ Development
 
@@ -148,16 +148,21 @@ pnpm typecheck
 
 ### Build Configuration
 
-The project uses Nitro for building with prerendering enabled:
+The project is configured for **static site generation (SSG)** using Nitro:
 
 ```typescript
 nitro: {
+  preset: 'static',
   prerender: {
-    routes: ['/'],
-    crawlLinks: true
-  }
+    routes: ['/', '/about', '/blog', '/speaking'],
+    crawlLinks: true,
+    failOnError: false
+  },
+  static: true
 }
 ```
+
+All routes are pre-rendered at build time using the `prerender: true` route rule. This creates a fully static site with no server runtime required, perfect for hosting on CDNs and static hosting platforms.
 
 ## 🎯 Content Management
 
@@ -196,17 +201,35 @@ events:
 
 ## 🌐 Deployment
 
-### Static Site Generation
+This site is configured as a **fully static site** that can be deployed to any static hosting platform or CDN.
+
+### Building for Production
 
 ```bash
+# Generate static site
 pnpm generate
 ```
 
-This creates a `.output/public` directory ready for deployment to any static hosting service.
+This creates a `.output/public` directory containing all pre-rendered HTML, CSS, JS, and assets. The output is completely static with no server runtime required.
+
+### Recommended Hosting Platforms
+
+- **Netlify** - Automatic deployment from Git
+- **Vercel** - Zero-config deployment
+- **Cloudflare Pages** - Fast global CDN
+- **GitHub Pages** - Free static hosting
+- **AWS S3 + CloudFront** - Scalable static hosting
+- Any static file hosting service
+
+### Build Command for Hosting Platforms
+
+- **Build Command**: `pnpm generate`
+- **Output Directory**: `.output/public`
+- **Node Version**: 18+
 
 ### Environment Variables
 
-Configure in `.env`:
+Configure in `.env` (if needed):
 
 ```bash
 # Add any required environment variables here
@@ -214,12 +237,31 @@ Configure in `.env`:
 
 ## 📝 SEO Configuration
 
-SEO is configured globally in `app/app.vue`:
+This site is optimized for search engines with comprehensive SEO features:
 
+### Global SEO (`app/app.vue`)
 - Title template: `%s - Martin Patino`
-- Open Graph images
-- Twitter card support
-- Per-page SEO overrides via `useSeoMeta()`
+- Open Graph images and metadata
+- Twitter Card support (`summary_large_image`)
+- Automatic sitemap generation via `@nuxtjs/sitemap`
+- Proper HTML lang attribute and meta tags
+
+### Page-Level SEO
+Each page uses `useSeoMeta()` for customized metadata:
+- Custom titles and descriptions
+- Per-page Open Graph images
+- Dynamic meta tags based on content
+
+### Structured Data (JSON-LD)
+- **Person Schema** on homepage - Provides information about Martin Patino
+- **Article Schema** on blog posts - Rich snippets for blog content
+- Improves search engine understanding and rich results
+
+### Static Site SEO Benefits
+- All pages pre-rendered with full content at build time
+- Fast initial page load improves Core Web Vitals
+- No JavaScript required for content rendering
+- Perfect for search engine crawlers
 
 ## 🎨 Theming
 
