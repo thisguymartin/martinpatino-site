@@ -1,0 +1,134 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+};
+
+// Handle author format (can be string or object)
+const authorName = typeof post.data.author === 'string'
+  ? post.data.author
+  : post.data.author.name;
+
+// Handle minRead format (can be string or number)
+const minReadStr = post.data.minRead
+  ? (typeof post.data.minRead === 'number' ? `${post.data.minRead} min read` : post.data.minRead)
+  : null;
+---
+
+<BaseLayout
+  title={`${post.data.title} - Martin Patino`}
+  description={post.data.description}
+  image={post.data.image}
+  article={true}
+  publishedTime={post.data.date.toISOString()}
+  tags={post.data.tags}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+    <!-- Back to Blog Link -->
+    <a
+      href="/blog"
+      class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 mb-8 transition-colors"
+    >
+      <Icon name="lucide:arrow-left" class="w-4 h-4" />
+      Back to Blog
+    </a>
+
+    <!-- Article Header -->
+    <header class="mb-8">
+      {
+        post.data.image && (
+          <div class="mb-8 rounded-lg overflow-hidden">
+            <img
+              src={post.data.image}
+              alt={post.data.title}
+              class="w-full h-64 sm:h-96 object-cover"
+              loading="eager"
+            />
+          </div>
+        )
+      }
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        {post.data.title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
+        <div class="flex items-center gap-2">
+          <Icon name="lucide:calendar" class="w-4 h-4" />
+          <time datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
+          </time>
+        </div>
+
+        {
+          minReadStr && (
+            <div class="flex items-center gap-2">
+              <Icon name="lucide:clock" class="w-4 h-4" />
+              <span>{minReadStr}</span>
+            </div>
+          )
+        }
+
+        <div class="flex items-center gap-2">
+          <Icon name="lucide:user" class="w-4 h-4" />
+          <span>{authorName}</span>
+        </div>
+      </div>
+
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {post.data.tags.map((tag) => (
+              <span class="px-3 py-1 text-sm font-medium bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <!-- Article Content -->
+    <div
+      class="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-pre:bg-gray-100 dark:prose-pre:bg-gray-900 prose-code:text-primary-600 dark:prose-code:text-primary-400 prose-img:rounded-lg max-w-none"
+    >
+      <Content />
+    </div>
+
+    <!-- Share Section -->
+    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        Share this article
+      </h3>
+      <div class="flex gap-4">
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(`https://martinpatino.com/blog/${post.slug}`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+        >
+          <Icon name="simple-icons:x" class="w-4 h-4" />
+          Share on X
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
