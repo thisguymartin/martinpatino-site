@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { Icon } from 'astro-icon/components';
 
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts
@@ -11,7 +10,7 @@ const sortedPosts = allPosts
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
   }).format(date);
 };
@@ -21,84 +20,42 @@ const formatDate = (date: Date) => {
   title="Blog - Martin Patino"
   description="Articles about software engineering, cloud architecture, serverless applications, and web development."
 >
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-    <!-- Hero Section -->
-    <div class="text-center mb-12 sm:mb-16">
-      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-        Blog
+  <div class="max-w-3xl mx-auto px-6 py-20 sm:py-32">
+    <div class="mb-20">
+      <h1 class="text-5xl sm:text-7xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
+        Writing
       </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-        Thoughts on software engineering, cloud architecture, and building scalable systems.
-      </p>
-    </div>
-
-    <!-- Blog Posts Grid -->
-    <div class="space-y-8">
-      {
-        sortedPosts.map((post) => (
-          <article class="card group">
-            <a href={`/blog/${post.slug}`} class="block">
-              {post.data.image && (
-                <div class="mb-4 rounded-lg overflow-hidden">
-                  <img
-                    src={post.data.image}
-                    alt={post.data.title}
-                    class="w-full h-48 object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-
-              <div class="space-y-2">
-                <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-                  <time datetime={post.data.date.toISOString()}>
-                    {formatDate(post.data.date)}
-                  </time>
-                  {post.data.minRead && (
-                    <>
-                      <span>•</span>
-                      <span class="flex items-center gap-1">
-                        <Icon name="lucide:clock" class="w-4 h-4" />
-                        {typeof post.data.minRead === 'number' ? `${post.data.minRead} min read` : post.data.minRead}
-                      </span>
-                    </>
-                  )}
-                </div>
-
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                  {post.data.title}
-                </h2>
-
-                <p class="text-gray-600 dark:text-gray-400 line-clamp-2">
-                  {post.data.description}
-                </p>
-
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 pt-2">
-                    {post.data.tags.map((tag) => (
-                      <span class="px-2 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                <div class="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium pt-2">
-                  Read more
-                  <Icon name="lucide:arrow-right" class="w-4 h-4" />
-                </div>
-              </div>
-            </a>
-          </article>
-        ))
-      }
+      <div class="h-1 w-20 bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-600 rounded-full"></div>
     </div>
 
     {
-      sortedPosts.length === 0 && (
-        <div class="text-center py-12">
-          <p class="text-gray-600 dark:text-gray-400">No blog posts yet. Check back soon!</p>
-        </div>
+      sortedPosts.length > 0 ? (
+        <ul class="space-y-10">
+          {sortedPosts.map((post) => (
+            <li class="group">
+              <a href={`/blog/${post.slug}`} class="block">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-4 mb-3">
+                  <time
+                    datetime={post.data.date.toISOString()}
+                    class="text-gray-500 dark:text-gray-500 text-base sm:min-w-[140px] font-light"
+                  >
+                    {formatDate(post.data.date)}
+                  </time>
+                  <h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                    {post.data.title}
+                  </h2>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 sm:ml-[156px] text-lg leading-relaxed">
+                  {post.data.description}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gray-600 dark:text-gray-400 text-xl">
+          No posts yet. Check back soon!
+        </p>
       )
     }
   </div>

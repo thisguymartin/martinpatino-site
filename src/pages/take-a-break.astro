@@ -1,0 +1,143 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Take a Break - Play Doom | Martin Patino"
+  description="Need a break? Play the classic Doom (1993) right in your browser."
+>
+  <div class="max-w-5xl mx-auto px-6 py-12 sm:py-20">
+    <!-- Header -->
+    <div class="mb-12 text-center">
+      <h1 class="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
+        Take a Break 🎮
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Sometimes you need to step away from the code. Why not play some classic Doom?
+      </p>
+    </div>
+
+    <!-- Instructions -->
+    <div class="mb-8 bg-gray-50 dark:bg-gray-900/50 rounded-lg p-6 border border-gray-200 dark:border-gray-800">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        How to Play
+      </h2>
+      <div class="space-y-2 text-gray-700 dark:text-gray-300">
+        <p><strong>Default Controls:</strong></p>
+        <ul class="list-disc list-inside space-y-1 ml-4">
+          <li><strong>W / Up Arrow</strong> - Move forward</li>
+          <li><strong>S / Down Arrow</strong> - Move backward</li>
+          <li><strong>A</strong> - Strafe left</li>
+          <li><strong>D</strong> - Strafe right</li>
+          <li><strong>Left/Right Arrow</strong> - Turn left/right</li>
+          <li><strong>Ctrl or Left Mouse</strong> - Fire weapon</li>
+          <li><strong>Space</strong> - Open doors / Use</li>
+          <li><strong>1-7</strong> - Select weapons</li>
+          <li><strong>ESC</strong> - Menu / Options</li>
+        </ul>
+        <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+          <strong>Tip:</strong> Click inside the game to lock your mouse. You can customize controls in the ESC menu.
+          Press <strong>ESC</strong> and select "New Game" to start playing.
+        </p>
+      </div>
+    </div>
+
+    <!-- Loading Message -->
+    <div id="loading" class="text-center mb-8">
+      <p class="text-gray-600 dark:text-gray-400">
+        Loading Doom... This may take a moment.
+      </p>
+    </div>
+
+    <!-- Game Container -->
+    <div class="game-container bg-black rounded-lg overflow-hidden border-4 border-gray-800 dark:border-gray-700 shadow-2xl">
+      <div id="dosbox" class="w-full"></div>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="mt-8 text-center">
+      <p class="text-sm text-gray-500 dark:text-gray-500">
+        Doom (1993) by id Software. Running via js-dos emulator.
+      </p>
+      <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">
+        <a href="/" class="link">← Back to site</a>
+      </p>
+    </div>
+  </div>
+
+  <style>
+    .game-container {
+      max-width: 100%;
+      width: 100%;
+      position: relative;
+    }
+
+    #dosbox {
+      width: 100%;
+      height: 600px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #dosbox canvas {
+      max-width: 100% !important;
+      max-height: 600px !important;
+      width: auto !important;
+      height: auto !important;
+      display: block !important;
+      margin: 0 auto !important;
+    }
+
+    #dosbox > div {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    @media (max-width: 640px) {
+      #dosbox {
+        height: 400px;
+      }
+
+      #dosbox canvas {
+        max-height: 400px !important;
+      }
+    }
+  </style>
+
+  <!-- js-dos library -->
+  <script is:inline src="https://js-dos.com/cdn/js-dos-api.js"></script>
+
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', function() {
+      try {
+        var dosbox = new Dosbox({
+          id: "dosbox",
+          onload: function (dosbox) {
+            console.log("Dosbox loaded, starting Doom...");
+            // Hide loading message
+            var loading = document.getElementById('loading');
+            if (loading) {
+              loading.style.display = 'none';
+            }
+            // Run Doom
+            dosbox.run("https://js-dos.com/cdn/upload/DOOM-@evilution.zip", "./DOOM/DOOM.EXE");
+          },
+          onrun: function (dosbox, app) {
+            console.log("App '" + app + "' is running");
+          }
+        });
+      } catch (error) {
+        console.error("Error loading Doom:", error);
+        var loading = document.getElementById('loading');
+        if (loading) {
+          loading.innerHTML = '<p class="text-red-600 dark:text-red-400">Error loading Doom. Please try refreshing the page.</p>';
+        }
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,246 +1,276 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { Icon } from 'astro-icon/components';
 import { siteConfig } from '../config';
 
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+  .slice(0, 5);
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects
   .filter((project) => project.data.featured)
   .sort((a, b) => a.data.order - b.data.order);
-
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
-};
-
-const experience = [
-  {
-    position: 'Senior Software Engineer',
-    company: 'Sibi',
-    date: '2019 - Present',
-    url: 'https://sibi.com',
-    icon: 'lucide:cloud',
-  },
-  {
-    position: 'Lead Software Engineer',
-    company: 'Gizmodlabs',
-    date: '2019 - Present',
-    url: '#',
-    icon: 'lucide:code-2',
-  },
-];
 ---
 
 <BaseLayout>
-  <!-- Hero Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
-    <div class="max-w-3xl">
-      <h1
-        class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6"
-      >
-        Hey, I'm Martin Patino
-        <span class="text-primary-600 dark:text-primary-400">Senior Software Engineer</span>
-      </h1>
-      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-        I'm a Senior Software Engineer at Sibi with over 5 years of experience specializing in AWS
-        serverless technologies, AI agents, MCP servers, Node.js, and React. I build lean,
-        cost-effective, scalable solutions and lead complex serverless migrations.
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <a href={`mailto:${siteConfig.email}`} class="btn">
-          <Icon name="lucide:mail" class="w-5 h-5" />
-          Contact Me
-        </a>
-        <a href="/blog" class="btn btn-secondary">
-          <Icon name="lucide:book-open" class="w-5 h-5" />
-          Read Blog
-        </a>
-      </div>
+  <div class="max-w-3xl mx-auto px-6 py-20 sm:py-32">
+    <!-- Profile Image -->
+    <div class="mb-12">
+      <img
+        src={siteConfig.author.avatar}
+        alt="Martin Patino"
+        class="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-gray-200 dark:border-gray-800 shadow-lg"
+        loading="eager"
+      />
     </div>
-  </section>
 
-  <!-- Work Experience Section -->
-  <section class="bg-gray-50 dark:bg-gray-900/50 py-16 sm:py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-12">
-        Work Experience
+    <!-- Name with modern gradient accent -->
+    <div class="mb-20">
+      <h1 class="text-5xl sm:text-7xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
+        Martin Patino
+      </h1>
+      <div class="h-1 w-20 bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-600 rounded-full"></div>
+    </div>
+
+    <!-- About with better spacing -->
+    <div class="prose prose-xl dark:prose-invert max-w-none mb-24 space-y-8">
+      <p class="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed font-light">
+        I'm a Senior Software Engineer based in Phoenix with over 5 years of experience building scalable
+        serverless architectures on AWS. I specialize in turning complex technical challenges into elegant,
+        maintainable solutions.
+      </p>
+      <p class="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed font-light">
+        My expertise centers on AWS Lambda, DynamoDB, EventBridge, and React Native. I'm passionate about
+        creating systems that are not just technically sound, but also cost-effective and built to last.
+        Clean architecture and thoughtful design matter.
+      </p>
+      <p class="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed font-light">
+        Beyond day-to-day development, I'm deeply interested in AI agents, MCP servers, and the art of
+        simplification. I share my insights and experiences through writing when I can.
+      </p>
+    </div>
+
+    <!-- Currently Section -->
+    <section class="mb-24 bg-gradient-to-br from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 rounded-2xl p-8 border border-primary-100 dark:border-primary-900">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-3">
+        <span>⚡</span>
+        <span>Currently</span>
       </h2>
-      <div class="grid gap-6 md:grid-cols-2">
-        {
-          experience.map((exp) => (
-            <div class="card">
-              <div class="flex items-start gap-4">
-                <div class="flex-shrink-0">
-                  <div class="w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
-                    <Icon name={exp.icon} class="w-6 h-6 text-primary-600 dark:text-primary-400" />
-                  </div>
-                </div>
-                <div class="flex-grow">
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                    {exp.position}
-                  </h3>
-                  <p class="text-primary-600 dark:text-primary-400 font-medium">
-                    {exp.company}
-                  </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{exp.date}</p>
-                </div>
-              </div>
+      <div class="space-y-4 text-lg text-gray-700 dark:text-gray-300">
+        <p>
+          <strong>Working on:</strong> Large-scale serverless migrations, AI-powered automation workflows, and MCP server implementations
+        </p>
+        <p>
+          <strong>Exploring:</strong> Advanced AI agent architectures and practical applications beyond the current hype cycle
+        </p>
+        <p>
+          <strong>Reading:</strong> Research on distributed systems, event-driven architecture patterns, and system design principles
+        </p>
+        <p>
+          <strong>Side note:</strong> This site includes a playable version of Doom. <a href="/take-a-break" class="link">Take a break and try it</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Work Experience -->
+    <section class="mb-24">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 flex items-center gap-3">
+        <span>💼</span>
+        <span>Experience</span>
+      </h2>
+      <div class="space-y-8">
+        <!-- Sibi -->
+        <div class="group">
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-3">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                Senior Software Engineer
+              </h3>
+              <p class="text-lg text-primary-600 dark:text-primary-400 font-medium">
+                <a href="https://sibi.com" target="_blank" rel="noopener noreferrer" class="link">Sibi</a>
+              </p>
             </div>
+            <p class="text-gray-500 dark:text-gray-500 text-sm sm:text-base">Dec 2019 - Present</p>
+          </div>
+          <div class="text-gray-600 dark:text-gray-400 space-y-2">
+            <p>Leading the comprehensive migration to serverless architecture on AWS, focusing on scalability, reliability, and operational excellence.</p>
+            <ul class="list-disc list-inside space-y-1 ml-4 text-base">
+              <li>Architected and implemented full serverless stack: Lambda, DynamoDB, EventBridge, SQS, S3, CloudWatch</li>
+              <li>Built and maintain client-facing React Native mobile apps serving thousands of users</li>
+              <li>Designed and implemented complete payment service supporting multiple manufacturer workflows</li>
+              <li>Developed AI agents and MCP servers for client integrations</li>
+              <li>Define product roadmaps with stakeholders and translate them into technical solutions</li>
+              <li>Consistently optimize architecture for performance and cost-efficiency</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Gizmodlabs -->
+        <div class="group">
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-3">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                Lead Software Engineer
+              </h3>
+              <p class="text-lg text-primary-600 dark:text-primary-400 font-medium">
+                Gizmodlabs
+              </p>
+            </div>
+            <p class="text-gray-500 dark:text-gray-500 text-sm sm:text-base">Feb 2019 - Present</p>
+          </div>
+          <div class="text-gray-600 dark:text-gray-400 space-y-2">
+            <p>Full-stack development and technical leadership across multiple projects.</p>
+            <ul class="list-disc list-inside space-y-1 ml-4 text-base">
+              <li>Lead development on web and mobile applications using modern JavaScript frameworks</li>
+              <li>Mentor junior developers and establish best practices for the team</li>
+              <li>Design and implement scalable, resilient architectures for high-traffic applications</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Previous Experience -->
+        <div class="pt-6 border-t border-gray-200 dark:border-gray-800">
+          <p class="text-gray-600 dark:text-gray-400 mb-3">
+            <strong>Previously:</strong>
+          </p>
+          <div class="space-y-2 text-gray-600 dark:text-gray-400">
+            <p>
+              <strong class="text-gray-900 dark:text-gray-100">Senior Software Engineer</strong> at Torchlight Software (2019) —
+              Led as Agile SCRUM Master, architected CI/CD processes, designed the MindMint product
+            </p>
+            <p>
+              <strong class="text-gray-900 dark:text-gray-100">Software Engineer</strong> at NAGRA (2018-2019) —
+              Built frontend UI and backend API for myCinema, handled content encryption with Widevine
+            </p>
+            <p>
+              <strong class="text-gray-900 dark:text-gray-100">Frontend Developer</strong> at Truman (2017-2018) —
+              Primary developer for cybersecurity startup using Vue.js, Nuxt, and Vuex
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Writing -->
+    <section class="mb-24">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 flex items-center gap-3">
+        <span>📝</span>
+        <span>Writing</span>
+      </h2>
+      <ul class="space-y-4">
+        {
+          recentPosts.map((post) => (
+            <li class="group">
+              <a href={`/blog/${post.slug}`} class="link text-lg sm:text-xl block py-1 transition-all">
+                {post.data.title}
+              </a>
+            </li>
           ))
         }
-      </div>
-    </div>
-  </section>
-
-  <!-- Featured Projects Section -->
-  {
-    featuredProjects.length > 0 && (
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-12">
-          Featured Projects
-        </h2>
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <article class="card group">
-              {project.data.image && (
-                <div class="mb-4 rounded-lg overflow-hidden">
-                  <img
-                    src={project.data.image}
-                    alt={project.data.title}
-                    class="w-full h-48 object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-
-              <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                {project.data.title}
-              </h3>
-
-              <p class="text-gray-600 dark:text-gray-400 mb-4">
-                {project.data.description}
-              </p>
-
-              {project.data.tech.length > 0 && (
-                <div class="flex flex-wrap gap-2 mb-4">
-                  {project.data.tech.map((tech) => (
-                    <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              <div class="flex gap-3">
-                {project.data.link && (
-                  <a
-                    href={project.data.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link text-sm font-medium flex items-center gap-1"
-                  >
-                    <Icon name="lucide:external-link" class="w-4 h-4" />
-                    View Project
-                  </a>
-                )}
-                {project.data.github && (
-                  <a
-                    href={project.data.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link text-sm font-medium flex items-center gap-1"
-                  >
-                    <Icon name="lucide:github" class="w-4 h-4" />
-                    Code
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Latest Blog Posts Section -->
-  {
-    recentPosts.length > 0 && (
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div class="flex items-center justify-between mb-12">
-          <div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-              Latest Articles
-            </h2>
-            <p class="text-gray-600 dark:text-gray-400">Some of my recent thoughts</p>
-          </div>
-          <a href="/blog" class="link font-medium flex items-center gap-2">
-            View all
-            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        <li class="group pt-2">
+          <a href="/blog" class="link text-lg sm:text-xl flex items-center gap-2 py-1">
+            <span>View all articles</span>
+            <span class="text-sm">→</span>
           </a>
-        </div>
+        </li>
+      </ul>
+    </section>
 
-        <div class="grid gap-8 md:grid-cols-3">
-          {recentPosts.map((post) => (
-            <article class="card group">
-              <a href={`/blog/${post.slug}`} class="block">
-                {post.data.image && (
-                  <div class="mb-4 rounded-lg overflow-hidden">
+    <!-- Featured Projects -->
+    {
+      featuredProjects.length > 0 && (
+        <section class="mb-24">
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
+              <span>🚀</span>
+              <span>Featured Projects</span>
+            </h2>
+            <a href="/projects" class="link text-lg flex items-center gap-2">
+              <span>View all</span>
+              <span class="text-sm">→</span>
+            </a>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2">
+            {featuredProjects.slice(0, 4).map((project) => (
+              <article class="group bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:border-primary-400 dark:hover:border-primary-600 transition-all duration-300">
+                {project.data.image && (
+                  <div class="aspect-video overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <img
-                      src={post.data.image}
-                      alt={post.data.title}
-                      class="w-full h-48 object-cover"
+                      src={project.data.image}
+                      alt={project.data.title}
+                      class="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
                 )}
-
-                <div class="space-y-2">
-                  <time
-                    datetime={post.data.date.toISOString()}
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    {formatDate(post.data.date)}
-                  </time>
-
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
-                    {post.data.title}
+                <div class="p-6">
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                    {project.data.title}
                   </h3>
-
-                  <p class="text-gray-600 dark:text-gray-400 line-clamp-2">
-                    {post.data.description}
+                  <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                    {project.data.description}
                   </p>
+                  {project.data.tech.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      {project.data.tech.slice(0, 3).map((tech) => (
+                        <span class="px-2 py-1 text-xs font-medium bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded">
+                          {tech}
+                        </span>
+                      ))}
+                      {project.data.tech.length > 3 && (
+                        <span class="px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400">
+                          +{project.data.tech.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  <div class="flex gap-3 text-sm">
+                    {project.data.link && (
+                      <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="link font-medium">
+                        View Project →
+                      </a>
+                    )}
+                    {project.data.github && (
+                      <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="link font-medium">
+                        Code
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-    )
-  }
+              </article>
+            ))}
+          </div>
+        </section>
+      )
+    }
 
-  <!-- CTA Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-    <div class="card text-center max-w-2xl mx-auto bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800">
-      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-        Let's Work Together
+    <!-- Contact -->
+    <section>
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 flex items-center gap-3">
+        <span>💬</span>
+        <span>Let's Connect</span>
       </h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-6">
-        I'm always interested in hearing about new projects and opportunities.
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-6">
+        I'm always interested in discussing serverless architectures, AI implementations, and collaborative
+        opportunities. Feel free to reach out through any of these channels.
       </p>
-      <a href={`mailto:${siteConfig.email}`} class="btn">
-        <Icon name="lucide:mail" class="w-5 h-5" />
-        Get in Touch
-      </a>
-    </div>
-  </section>
+      <div class="flex flex-wrap gap-6 text-lg sm:text-xl">
+        <a href={`mailto:${siteConfig.email}`} class="link">
+          Email
+        </a>
+        <a href="https://github.com/thisguymartin" target="_blank" rel="noopener noreferrer" class="link">
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/thisguymartin" target="_blank" rel="noopener noreferrer" class="link">
+          LinkedIn
+        </a>
+        <a href="https://x.com/thisguymartin" target="_blank" rel="noopener noreferrer" class="link">
+          X/Twitter
+        </a>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

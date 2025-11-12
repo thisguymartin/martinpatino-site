@@ -24,17 +24,12 @@ export const siteConfig = {
       href: '/blog',
     },
     {
-      label: 'About',
-      href: '/about',
+      label: 'Projects',
+      href: '/projects',
     },
-    // Uncomment when ready
-    // {
-    //   label: 'Speaking',
-    //   href: '/speaking',
-    // },
-    // {
-    //   label: 'Projects',
-    //   href: '/projects',
-    // },
+    {
+      label: 'Take a Break',
+      href: '/take-a-break',
+    },
   ],
 };
