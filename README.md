@@ -10,7 +10,7 @@ A modern, personal portfolio website built with Nuxt 4 and Nuxt UI, showcasing p
 - **Image Optimization**: [Nuxt Image](https://image.nuxt.com) - Optimized images with built-in lazy loading
 - **Animations**: [Motion-V](https://motion-v.netlify.app) - Vue animation library
 - **Icons**: Iconify (Lucide & Simple Icons)
-- **Database**: Better SQLite3 (for content management)
+- **Database**: Better SQLite3 (used internally by Nuxt Content)
 - **Package Manager**: pnpm
 
 ## 📄 Pages & Architecture
@@ -26,18 +26,26 @@ A modern, personal portfolio website built with Nuxt 4 and Nuxt UI, showcasing p
 
 2. **About (`/about`)** - `app/pages/about.vue`
    - Personal introduction with avatar
-   - Biography content from markdown
-   - Commented out: Polaroid image gallery
+   - Biography content from markdown/YAML
+   - Uses `UColorModeAvatar` component
 
-3. **Blog (`/blog`)** - `app/pages/blog/index.vue`
+3. **Projects (`/projects`)** - `app/pages/_projects.vue`
+   - Portfolio showcase of software engineering projects
+   - Animated project cards with horizontal layout
+   - Displays projects from `content/projects/` collection
+   - Note: Currently commented out in navigation menu
+
+4. **Blog (`/blog`)** - `app/pages/blog/index.vue`
    - List of all blog posts ordered by date (DESC)
    - Animated blog post cards with hover effects
    - Individual post route: `/blog/[...slug]`
+   - Includes JSON-LD Article schema for SEO
 
-4. **Speaking (`/speaking`)** - `app/pages/speaking.vue`
+5. **Speaking (`/speaking`)** - `app/pages/speaking.vue`
    - Categorized speaking engagements (Conferences, Live talks, Podcasts)
    - Timeline-style layout with dates and locations
    - External links to recordings/resources
+   - Note: Currently commented out in navigation menu
 
 ### Architecture Overview
 
@@ -52,7 +60,7 @@ app/
 │   ├── blog/
 │   │   ├── index.vue      # Blog listing
 │   │   └── [...slug].vue  # Individual blog posts
-│   └── _projects.vue      # Projects (implementation pending)
+│   └── _projects.vue      # Projects portfolio page
 ├── components/
 │   ├── AppHeader.vue      # Site header/navigation
 │   ├── AppFooter.vue      # Site footer
@@ -67,6 +75,10 @@ app/
 │       └── Testimonials.vue
 ├── layouts/
 │   └── default.vue        # Default layout wrapper
+├── utils/
+│   ├── seo.ts             # SEO utilities (JSON-LD schemas)
+│   ├── clipboard.ts       # Clipboard copy utility
+│   └── links.ts           # Navigation links configuration
 └── error.vue              # Error page handler
 
 content/
@@ -145,29 +157,40 @@ pnpm typecheck
 - `@nuxt/content` - Content management
 - `@vueuse/nuxt` - Vue composition utilities
 - `motion-v/nuxt` - Animation library
+- `@nuxtjs/sitemap` - Automatic sitemap generation
 
 ### Build Configuration
 
 The project is configured for **static site generation (SSG)** using Nitro:
 
 ```typescript
-nitro: {
-  preset: 'static',
-  prerender: {
-    routes: ['/', '/about', '/blog', '/speaking'],
-    crawlLinks: true,
-    failOnError: false
+  nitro: {
+    preset: 'static',
+    prerender: {
+      routes: ['/', '/about', '/blog', '/speaking'],
+      crawlLinks: true,
+      failOnError: false
+    },
+    static: true
   },
-  static: true
-}
+  sitemap: {
+    exclude: ['/_projects']
+  }
 ```
 
 All routes are pre-rendered at build time using the `prerender: true` route rule. This creates a fully static site with no server runtime required, perfect for hosting on CDNs and static hosting platforms.
 
 ## 🎯 Content Management
 
-Content is managed via YAML and Markdown files in the `content/` directory:
+Content is managed via YAML and Markdown files in the `content/` directory using Nuxt Content collections:
 
+- **Collections** - Defined in `content.config.ts`:
+  - `index` - Home page content (`index.yml`)
+  - `about` - About page content (`about.yml`)
+  - `blog` - Blog posts (markdown files in `blog/`)
+  - `projects` - Project data (YAML files in `projects/`)
+  - `pages` - Page metadata (`projects.yml`, `blog.yml`)
+  - `speaking` - Speaking engagements (`speaking.yml`)
 - **YAML files** (`.yml`) - Structured data for pages
 - **Markdown files** (`.md`) - Blog posts with frontmatter
 
@@ -186,6 +209,21 @@ image: /images/post-cover.jpg
 Your content here...
 ```
 
+### Adding Projects
+
+Create a new YAML file in `content/projects/`:
+
+```yaml
+title: Project Name
+description: Project description
+image: /images/project.jpg
+url: https://project-url.com
+tags:
+  - React
+  - AWS
+date: 2025-01-15
+```
+
 ### Adding Speaking Events
 
 Edit `content/speaking.yml`:
@@ -193,11 +231,13 @@ Edit `content/speaking.yml`:
 ```yaml
 events:
   - title: Event Name
-    date: '2025-01-15'
+    date: "2025-01-15"
     location: Conference Name
     category: Conference
     url: https://example.com
 ```
+
+Note: Category must be one of: `Conference`, `Live talk`, or `Podcast`
 
 ## 🌐 Deployment
 
@@ -240,24 +280,32 @@ Configure in `.env` (if needed):
 This site is optimized for search engines with comprehensive SEO features:
 
 ### Global SEO (`app/app.vue`)
+
 - Title template: `%s - Martin Patino`
+- Site URL: `https://martinpatino.com`
+- Site name: `Martin Patino - Senior Software Engineer`
 - Open Graph images and metadata
 - Twitter Card support (`summary_large_image`)
 - Automatic sitemap generation via `@nuxtjs/sitemap`
+- Content search functionality (⌘K / Meta+K) with `UContentSearch`
 - Proper HTML lang attribute and meta tags
 
 ### Page-Level SEO
+
 Each page uses `useSeoMeta()` for customized metadata:
+
 - Custom titles and descriptions
 - Per-page Open Graph images
 - Dynamic meta tags based on content
 
 ### Structured Data (JSON-LD)
-- **Person Schema** on homepage - Provides information about Martin Patino
-- **Article Schema** on blog posts - Rich snippets for blog content
+
+- **Person Schema** on homepage (`app/utils/seo.ts`) - Provides information about Martin Patino, including job title (Senior Software Engineer), employer (Sibi), and social profiles
+- **Article Schema** on blog posts - Rich snippets for blog content with author information
 - Improves search engine understanding and rich results
 
 ### Static Site SEO Benefits
+
 - All pages pre-rendered with full content at build time
 - Fast initial page load improves Core Web Vitals
 - No JavaScript required for content rendering
@@ -278,9 +326,11 @@ ui: {
 
 ## 📱 Contact & Social
 
-- **Email**: martin@gizmodlabs.com
+- **Email**: martin@sibipro.com
+- **Website**: [martinpatino.com](https://martinpatino.com)
 - **GitHub**: [@thisguymartin](https://github.com/thisguymartin)
 - **X (Twitter)**: [@thisguymartin](https://x.com/thisguymartin)
+- **Dev.to**: [@thisguymartin](https://dev.to/thisguymartin)
 
 ## 📄 License
 
