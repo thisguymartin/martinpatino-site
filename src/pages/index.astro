@@ -1,0 +1,216 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { siteConfig } from '../config';
+
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
+};
+
+const experience = [
+  {
+    position: 'Senior Software Engineer',
+    company: 'Sibi',
+    date: '2019 - Present',
+    url: 'https://sibi.com',
+    icon: 'lucide:cloud',
+  },
+  {
+    position: 'Lead Software Engineer',
+    company: 'Gizmodlabs',
+    date: '2019 - Present',
+    url: '#',
+    icon: 'lucide:code-2',
+  },
+  {
+    position: 'Senior Software Engineer',
+    company: 'Torchlight Software',
+    date: '2019 - 2019',
+    url: '#',
+    icon: 'lucide:box',
+  },
+  {
+    position: 'Software Engineer',
+    company: 'NAGRA',
+    date: '2018 - 2019',
+    url: 'https://www.nagra.com',
+    icon: 'lucide:laptop',
+  },
+];
+---
+
+<BaseLayout>
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
+    <div class="max-w-3xl">
+      <h1
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6"
+      >
+        Hey, I'm Martin Patino
+        <span class="text-primary-600 dark:text-primary-400">Senior Software Engineer</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+        I'm a Senior Software Engineer at Sibi with over 5 years of experience specializing in AWS
+        serverless technologies, AI agents, MCP servers, Node.js, and React. I build lean,
+        cost-effective, scalable solutions and lead complex serverless migrations.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href={`mailto:${siteConfig.email}`} class="btn">
+          <Icon name="lucide:mail" class="w-5 h-5" />
+          Contact Me
+        </a>
+        <a href="/blog" class="btn btn-secondary">
+          <Icon name="lucide:book-open" class="w-5 h-5" />
+          Read Blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Experience Section -->
+  <section class="bg-gray-50 dark:bg-gray-900/50 py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-12">
+        Work Experience
+      </h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          experience.map((exp) => (
+            <div class="card">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                  <div class="w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
+                    <Icon name={exp.icon} class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                  </div>
+                </div>
+                <div class="flex-grow">
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                    {exp.position}
+                  </h3>
+                  <p class="text-primary-600 dark:text-primary-400 font-medium">
+                    {exp.company}
+                  </p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{exp.date}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts Section -->
+  {
+    recentPosts.length > 0 && (
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div class="flex items-center justify-between mb-12">
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+              Latest Articles
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400">Some of my recent thoughts</p>
+          </div>
+          <a href="/blog" class="link font-medium flex items-center gap-2">
+            View all
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </a>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-3">
+          {recentPosts.map((post) => (
+            <article class="card group hover:scale-[1.02] transition-transform">
+              <a href={`/blog/${post.slug}`} class="block">
+                {post.data.image && (
+                  <div class="mb-4 rounded-lg overflow-hidden">
+                    <img
+                      src={post.data.image}
+                      alt={post.data.title}
+                      class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+
+                <div class="space-y-2">
+                  <time
+                    datetime={post.data.date.toISOString()}
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    {formatDate(post.data.date)}
+                  </time>
+
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
+                    {post.data.title}
+                  </h3>
+
+                  <p class="text-gray-600 dark:text-gray-400 line-clamp-2">
+                    {post.data.description}
+                  </p>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Skills & Technologies Section -->
+  <section class="bg-gray-50 dark:bg-gray-900/50 py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8">
+        Technologies I Work With
+      </h2>
+      <div class="flex flex-wrap gap-3">
+        {
+          [
+            'AWS Lambda',
+            'Node.js',
+            'React',
+            'TypeScript',
+            'DynamoDB',
+            'EventBridge',
+            'SQS',
+            'React Native',
+            'Serverless',
+            'Docker',
+            'AI Agents',
+            'MCP Servers',
+          ].map((tech) => (
+            <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <div class="card text-center max-w-2xl mx-auto bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        Let's Work Together
+      </h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">
+        I'm always interested in hearing about new projects and opportunities.
+      </p>
+      <a href={`mailto:${siteConfig.email}`} class="btn">
+        <Icon name="lucide:mail" class="w-5 h-5" />
+        Get in Touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

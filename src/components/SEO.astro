@@ -1,0 +1,114 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  tags?: string[];
+  author?: string;
+  type?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+}
+
+const {
+  title = 'Martin Patino - Senior Software Engineer',
+  description = 'Senior Software Engineer specializing in cloud architecture, serverless applications, and modern web development. Experienced with AWS, TypeScript, and building scalable systems.',
+  image = '/profile.png',
+  article = false,
+  publishedTime,
+  modifiedTime,
+  tags = [],
+  author = 'Martin Patino',
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = 'https://martinpatino.com';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).toString();
+const imageUrl = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
+
+// JSON-LD structured data
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': article ? 'BlogPosting' : 'WebSite',
+  headline: title,
+  description: description,
+  image: imageUrl,
+  author: {
+    '@type': 'Person',
+    name: author,
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Martin Patino',
+    url: siteUrl,
+  },
+  ...(article && publishedTime && {
+    datePublished: publishedTime,
+    dateModified: modifiedTime || publishedTime,
+  }),
+  ...(article && tags.length > 0 && {
+    keywords: tags.join(', '),
+  }),
+  url: canonicalURL,
+};
+
+const breadcrumbList = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+  ],
+};
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:site_name" content="Martin Patino" />
+<meta property="og:locale" content="en_US" />
+
+{article && publishedTime && (
+  <>
+    <meta property="article:published_time" content={publishedTime} />
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    <meta property="article:author" content={author} />
+    {tags.map((tag) => <meta property="article:tag" content={tag} />)}
+  </>
+)}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:creator" content="@martinpatino_" />
+<meta name="twitter:site" content="@martinpatino_" />
+
+<!-- Additional SEO -->
+<meta name="author" content={author} />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
+
+<!-- JSON-LD Structured Data -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbList)} />
