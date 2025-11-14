@@ -23,13 +23,13 @@ export const siteConfig = {
       label: 'Blog',
       href: '/blog',
     },
-    {
-      label: 'Projects',
-      href: '/projects',
-    },
-    {
-      label: 'Take a Break',
-      href: '/take-a-break',
-    },
+    // {
+    //   label: 'Projects',
+    //   href: '/projects',
+    // },
+    // {
+    //   label: 'Take a Break',
+    //   href: '/take-a-break',
+    // },
   ],
-};
+}
