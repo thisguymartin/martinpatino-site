@@ -1,0 +1,293 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="New Email Source - Martin Patino"
+  description="Create a new email source configuration"
+>
+  <div class="max-w-3xl mx-auto px-6 py-20 sm:py-32">
+    <!-- Header -->
+    <div class="mb-12">
+      <h1 class="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
+        New Email Source
+      </h1>
+      <div class="h-1 w-20 bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-600 rounded-full mb-6"></div>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Configure a new email source to monitor and process incoming messages.
+      </p>
+    </div>
+
+    <!-- Success Message (hidden by default) -->
+    <div id="success-message" class="hidden mb-8 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg p-6">
+      <div class="flex items-start">
+        <svg class="w-6 h-6 text-green-600 dark:text-green-400 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div>
+          <h3 class="text-lg font-semibold text-green-900 dark:text-green-100 mb-1">Email source created successfully!</h3>
+          <p class="text-green-700 dark:text-green-300">Your new email source has been configured and is ready to use.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="email-source-form" class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-8 shadow-sm">
+      <!-- Source Name -->
+      <div class="mb-6">
+        <label for="source-name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          Source Name <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="source-name"
+          name="source-name"
+          required
+          placeholder="e.g., Support Inbox, Sales Inquiries"
+          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+        />
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">A descriptive name to identify this email source</p>
+      </div>
+
+      <!-- Email Address -->
+      <div class="mb-6">
+        <label for="email-address" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          Email Address <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="email"
+          id="email-address"
+          name="email-address"
+          required
+          placeholder="support@example.com"
+          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+        />
+      </div>
+
+      <!-- Provider -->
+      <div class="mb-6">
+        <label for="provider" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          Email Provider <span class="text-red-500">*</span>
+        </label>
+        <select
+          id="provider"
+          name="provider"
+          required
+          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+        >
+          <option value="">Select a provider...</option>
+          <option value="gmail">Gmail</option>
+          <option value="outlook">Outlook / Office 365</option>
+          <option value="imap">IMAP (Generic)</option>
+          <option value="exchange">Microsoft Exchange</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+
+      <!-- Authentication Section -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          Authentication
+        </h3>
+
+        <!-- Auth Method -->
+        <div class="mb-4">
+          <label for="auth-method" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Authentication Method <span class="text-red-500">*</span>
+          </label>
+          <select
+            id="auth-method"
+            name="auth-method"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+          >
+            <option value="">Select method...</option>
+            <option value="oauth2">OAuth 2.0 (Recommended)</option>
+            <option value="password">Username & Password</option>
+            <option value="api-key">API Key</option>
+          </select>
+        </div>
+
+        <!-- Credentials (shown for password auth) -->
+        <div id="password-fields" class="hidden space-y-4">
+          <div>
+            <label for="username" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="your.email@example.com"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            />
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            />
+          </div>
+        </div>
+
+        <!-- OAuth info (shown for oauth2) -->
+        <div id="oauth-info" class="hidden bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <p class="text-sm text-blue-700 dark:text-blue-300">
+            You'll be redirected to authenticate with your email provider after submitting this form.
+          </p>
+        </div>
+      </div>
+
+      <!-- Advanced Settings -->
+      <details class="mb-6 group">
+        <summary class="cursor-pointer text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <span>Advanced Settings</span>
+          <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </summary>
+        <div class="mt-4 space-y-4 px-4">
+          <!-- Server Settings -->
+          <div>
+            <label for="server-host" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              IMAP Server Host
+            </label>
+            <input
+              type="text"
+              id="server-host"
+              name="server-host"
+              placeholder="imap.example.com"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            />
+          </div>
+          <div>
+            <label for="server-port" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Port
+            </label>
+            <input
+              type="number"
+              id="server-port"
+              name="server-port"
+              placeholder="993"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            />
+          </div>
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="use-ssl"
+              name="use-ssl"
+              checked
+              class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label for="use-ssl" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+              Use SSL/TLS
+            </label>
+          </div>
+        </div>
+      </details>
+
+      <!-- Submit Button -->
+      <div class="flex gap-4 pt-6 border-t border-gray-200 dark:border-gray-800">
+        <button
+          type="submit"
+          class="flex-1 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-200 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        >
+          Create Email Source
+        </button>
+        <a
+          href="/email-sources"
+          class="px-6 py-3 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg transition-colors duration-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        >
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('email-source-form');
+      const authMethodSelect = document.getElementById('auth-method');
+      const passwordFields = document.getElementById('password-fields');
+      const oauthInfo = document.getElementById('oauth-info');
+      const successMessage = document.getElementById('success-message');
+
+      // Show/hide authentication fields based on selected method
+      authMethodSelect?.addEventListener('change', (e) => {
+        const method = e.target.value;
+
+        if (method === 'password') {
+          passwordFields?.classList.remove('hidden');
+          oauthInfo?.classList.add('hidden');
+        } else if (method === 'oauth2') {
+          passwordFields?.classList.add('hidden');
+          oauthInfo?.classList.remove('hidden');
+        } else {
+          passwordFields?.classList.add('hidden');
+          oauthInfo?.classList.add('hidden');
+        }
+      });
+
+      // Handle form submission
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        console.log('Form submitted with data:', data);
+
+        // Simulate API call
+        setTimeout(() => {
+          // Show success message
+          successMessage?.classList.remove('hidden');
+
+          // Scroll to top to show message
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // Reset form
+          form.reset();
+
+          // Hide password fields
+          passwordFields?.classList.add('hidden');
+          oauthInfo?.classList.add('hidden');
+
+          // Hide success message after 5 seconds
+          setTimeout(() => {
+            successMessage?.classList.add('hidden');
+          }, 5000);
+        }, 500);
+      });
+    });
+  </script>
+
+  <style>
+    /* Smooth transitions for form elements */
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+    }
+
+    /* Custom select arrow */
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1.25rem;
+      padding-right: 2.5rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      }
+    }
+  </style>
+</BaseLayout>
